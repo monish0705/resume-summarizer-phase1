@@ -3,32 +3,23 @@ import pdfplumber
 import openai
 import os
 
-# ========================================
-# CONFIGURATION
-# ========================================
 
 # Get OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Check if API key is set
 if not openai.api_key:
-    st.error("⚠️ OpenAI API key not found! Please set the OPENAI_API_KEY environment variable.")
+    st.error(" OpenAI API key not found! Please set the OPENAI_API_KEY environment variable.")
     st.stop()
 
-# ========================================
-# FUNCTION 1: EXTRACT TEXT FROM PDF
-# ========================================
+# EXTRACT TEXT FROM PDF
+
 
 def extract_text_from_pdf(pdf_file):
     """
     Extracts text from all pages of a PDF file.
-    
-    Args:
-        pdf_file: Uploaded PDF file object from Streamlit
-        
-    Returns:
-        str: Extracted text from all pages combined
-    """
+   """ 
+   
     try:
         text = ""
         # Open PDF using pdfplumber
@@ -47,19 +38,13 @@ def extract_text_from_pdf(pdf_file):
     except Exception as e:
         return f"Error extracting text: {str(e)}"
 
-# ========================================
+
 # FUNCTION 2: GENERATE SUMMARY USING LLM
-# ========================================
+
 
 def generate_summary(resume_text):
     """
     Generates a technical summary from resume text using OpenAI.
-    
-    Args:
-        resume_text (str): Extracted resume text
-        
-    Returns:
-        str: Generated summary in bullet point format
     """
     
     # Define the prompt with your requirements
@@ -104,9 +89,8 @@ Output Format:
     except Exception as e:
         return f"Error generating summary: {str(e)}"
 
-# ========================================
+
 # STREAMLIT UI
-# ========================================
 
 # Set page configuration
 st.set_page_config(
@@ -166,7 +150,7 @@ if uploaded_file is not None:
             if summary.startswith("Error"):
                 st.error(summary)
             else:
-                st.subheader("✨ Technical Summary")
+                st.subheader(" Technical Summary")
                 st.markdown(summary)
                 
                 # Add download button for summary
